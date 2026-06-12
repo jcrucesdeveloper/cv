@@ -1,0 +1,187 @@
+%% cv.tex — compile with: xelatex cv.tex
+\documentclass[10pt, a4paper]{article}
+
+%% ── Packages ──────────────────────────────────────────────────────────────────
+\usepackage[
+  top=1.8cm, bottom=1.8cm,
+  left=2.0cm, right=2.0cm
+]{geometry}
+\usepackage{fontspec}           % xelatex only
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{parskip}
+
+%% ── Colors ────────────────────────────────────────────────────────────────────
+\definecolor{accent}{HTML}{2563EB}   % blue-600
+\definecolor{muted}{HTML}{6B7280}    % gray-500
+\definecolor{rule}{HTML}{E5E7EB}     % gray-200
+
+%% ── Fonts ─────────────────────────────────────────────────────────────────────
+\setmainfont{Helvetica Neue}
+%% Swap for Inter if you have it installed:
+% \setmainfont{Inter}[
+%   UprightFont    = *-Regular,
+%   BoldFont       = *-Bold,
+%   ItalicFont     = *-Italic,
+%   BoldItalicFont = *-BoldItalic,
+%   Extension      = .ttf,
+%   Path           = ./fonts/,
+% ]
+
+%% ── Hyperlinks ────────────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  linkcolor=accent,
+  hidelinks,
+}
+
+%% ── Section style ─────────────────────────────────────────────────────────────
+\titleformat{\section}
+  {\normalfont\bfseries\large\color{accent}}
+  {}{0em}{}
+  [\vspace{-0.5em}\textcolor{rule}{\rule{\linewidth}{0.4pt}}\vspace{0.2em}]
+
+\titlespacing{\section}{0pt}{1em}{0.3em}
+
+%% ── Helpers ───────────────────────────────────────────────────────────────────
+\newcommand{\cvheader}[5]{%
+  % #1 Name  #2 Title  #3 Email  #4 Phone  #5 Location
+  {\Huge\bfseries #1}\\[0.15em]
+  {\large\color{muted} #2}\\[0.5em]
+  {\small
+    \href{mailto:#3}{#3}
+    \enspace\textcolor{muted}{·}\enspace #4
+    \enspace\textcolor{muted}{·}\enspace #5
+  }
+  \vspace{0.8em}
+}
+
+\newcommand{\cvlinks}[3]{%
+  % #1 LinkedIn URL+label  #2 GitHub URL+label  #3 Portfolio (optional, empty = omit)
+  {\small
+    \href{https://linkedin.com/in/#1}{linkedin.com/in/#1}%
+    \ifx&#3&\else
+      \enspace\textcolor{muted}{·}\enspace \href{https://github.com/#2}{github.com/#2}%
+      \enspace\textcolor{muted}{·}\enspace \href{https://#3}{#3}%
+    \fi
+  }
+  \vspace{0.4em}
+}
+
+\newcommand{\experience}[4]{%
+  % #1 Role   #2 Company   #3 Dates   #4 Location
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \textbf{#1} \textcolor{muted}{at} \textbf{#2} & \textcolor{muted}{\small #3}\\
+    & \textcolor{muted}{\small #4}
+  \end{tabularx}
+  \vspace{0.1em}
+}
+
+\newcommand{\edu}[4]{%
+  % #1 Degree  #2 School  #3 Dates  #4 Detail (GPA/honours, or empty)
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \textbf{#1} — #2 & \textcolor{muted}{\small #3}\\
+  \end{tabularx}
+  \ifx&#4&\else{\small\textcolor{muted}{#4}}\fi
+  \vspace{0.2em}
+}
+
+\setlist[itemize]{
+  leftmargin=1.2em,
+  itemsep=0.1em,
+  topsep=0.2em,
+  parsep=0pt,
+}
+
+%% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\pagestyle{empty}
+
+%% ── Header ────────────────────────────────────────────────────────────────────
+\cvheader
+  {Jaco Cruces}
+  {Senior Software Engineer}
+  {jcrucesdeveloper@gmail.com}
+  {+56 9 XXXX XXXX}
+  {Santiago, Chile}
+
+%% Optional: social links
+% \cvlinks{yourhandle}{yourhandle}{yourwebsite.dev}
+
+%% ── Summary ───────────────────────────────────────────────────────────────────
+\section{Summary}
+
+Full-stack engineer with X years of experience building scalable web applications.
+Passionate about clean architecture, developer tooling, and shipping products that
+people actually use. Comfortable owning features end-to-end from database to UI.
+
+%% ── Experience ────────────────────────────────────────────────────────────────
+\section{Experience}
+
+\experience{Senior Software Engineer}{Acme Corp}{Jan 2023 – Present}{Remote}
+\begin{itemize}
+  \item Led rewrite of authentication service, reducing login latency by 40\%.
+  \item Mentored 3 junior engineers through onboarding and first production deploys.
+  \item Designed and shipped a real-time notification system handling 50k events/min.
+\end{itemize}
+\vspace{0.5em}
+
+\experience{Software Engineer}{Startup XYZ}{Mar 2021 – Dec 2022}{Santiago, Chile}
+\begin{itemize}
+  \item Built data pipeline in Python/Airflow ingesting 10M rows/day from 6 sources.
+  \item Reduced AWS bill by 30\% by migrating batch jobs from EC2 to Lambda + ECS.
+  \item Contributed to open-source React component library used across 4 products.
+\end{itemize}
+\vspace{0.5em}
+
+\experience{Junior Developer}{Agency ABC}{Jan 2020 – Feb 2021}{Santiago, Chile}
+\begin{itemize}
+  \item Delivered 8 client websites using Next.js, Tailwind CSS, and Contentful CMS.
+  \item Integrated Stripe payments and reduced checkout drop-off by 18\%.
+\end{itemize}
+
+%% ── Skills ────────────────────────────────────────────────────────────────────
+\section{Skills}
+
+\begin{tabularx}{\linewidth}{@{} l X @{}}
+  \textbf{Languages}   & TypeScript, Python, Go, SQL \\[0.2em]
+  \textbf{Frontend}    & React, Next.js, Tailwind CSS \\[0.2em]
+  \textbf{Backend}     & Node.js, FastAPI, PostgreSQL, Redis \\[0.2em]
+  \textbf{Infra}       & AWS, Docker, Kubernetes, Terraform, GitHub Actions \\[0.2em]
+  \textbf{Practices}   & TDD, CI/CD, DDD, REST, GraphQL \\
+\end{tabularx}
+
+%% ── Education ─────────────────────────────────────────────────────────────────
+\section{Education}
+
+\edu
+  {B.Sc. Computer Science}
+  {Universidad de Chile}
+  {2015 – 2019}
+  {Graduated with distinction · Thesis on distributed systems}
+
+%% ── Projects (optional) ───────────────────────────────────────────────────────
+\section{Projects}
+
+\noindent
+\textbf{godrhythm} \textcolor{muted}{·} \href{https://github.com/jaco/godrhythm}{\small github.com/jaco/godrhythm}\\
+{\small One-sentence description of what it does and why it's interesting.}
+\vspace{0.4em}
+
+\noindent
+\textbf{gym-bro} \textcolor{muted}{·} \href{https://github.com/jaco/gym-bro}{\small github.com/jaco/gym-bro}\\
+{\small One-sentence description.}
+
+%% ── Languages (spoken) ────────────────────────────────────────────────────────
+\section{Languages}
+
+Spanish (native)\enspace\textcolor{muted}{·}\enspace English (professional)
+
+\end{document}
